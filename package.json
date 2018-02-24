@@ -11,10 +11,13 @@
     "node": "8.9.4"
   },
   "author": "",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "dependencies": {
-    "data-store": "^1.0.0",
     "request": "^2.83.0",
     "supervisor": "^0.9.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iverson8976/nefedov_calc_bot.git"
   }
 }
