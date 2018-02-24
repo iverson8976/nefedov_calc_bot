@@ -1,0 +1,20 @@
+{
+  "name": "nefedov_test_bot",
+  "version": "1.0.0",
+  "description": "bot for test task",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "watch": "./node_modules/.bin/supervisor -i node_modules main.js"
+  },
+  "engines": {
+    "node": "8.9.4"
+  },
+  "author": "",
+  "license": "Apache 2.0",
+  "dependencies": {
+    "data-store": "^1.0.0",
+    "request": "^2.83.0",
+    "supervisor": "^0.9.1"
+  }
+}
