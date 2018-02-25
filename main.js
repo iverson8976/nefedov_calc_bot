@@ -35,6 +35,7 @@ var updatesOffset = 0;
 var getUpdates = function (callback) {
     var params = {offset: updatesOffset, timeout: 100};
     callMethod('getUpdates', params, function (err, data) {
+        console.log(data.result[0]);
         if (err) {
             return callback(err);
         }
@@ -49,7 +50,7 @@ var keyboard = JSON.stringify({
     inline_keyboard: [
         [
             {text: 'AC', callback_data: 'AC'},
-            {text: '->', callback_data: '->'}
+            {text: '<-', callback_data: '<-'}
         ],
         [
             {text: '.', callback_data: '.'}, 
@@ -135,14 +136,15 @@ var messageHandler = function (update) {
             action = '';
             secondNumb = '';           
         } else if (!(update.callback_query.data-0) && update.callback_query.data != 0) {
-            if (update.callback_query.data == '->') {
-                afterEqual = false;
+            if (update.callback_query.data == '<-') {                
                 allCurrentState = (firstNumb + ' ' + action + ' ' + secondNumb).replace(/\s*$/,'');         // delete space from end of string
-                allCurrentState = allCurrentState.substring(0, allCurrentState.length - 1);
+                if (!(firstNumb.search(/[A-Za-z]/) != -1 && action == '' && secondNumb == '')) {           // don't allow symbol clearing in firstNumb with letters (1e10 or Infinity)
+                    allCurrentState = allCurrentState.substring(0, allCurrentState.length - 1);
+                }                  
                 var allCurrentStateArray = allCurrentState.split(' ');
                 firstNumb = allCurrentStateArray[0] || '0';
                 action = allCurrentStateArray[1] || '';
-                secondNumb = allCurrentStateArray[2] || ''; 
+                secondNumb = allCurrentStateArray[2] || '';                 
             } else if (update.callback_query.data == '=') {
                 var result = eval(firstNumb + action + secondNumb);
                 answer = toRightSide ('= ' + result);
